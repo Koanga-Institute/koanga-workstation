@@ -1,5 +1,6 @@
 ---
 # SPDX-FileCopyrightText: 2025 The atomic-respin-template authors
+# SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
 # SPDX-License-Identifier: GPL-3.0-only
 name: Set Environment Variables
 
@@ -42,7 +43,7 @@ runs:
 
         REGISTRY=ghcr.io
         REGISTRY_USER=${{ github.actor }}
-        IMAGE_PATH=${{ github.repository_owner }}
+        IMAGE_PATH="$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')"
         IMAGE_NAME=${{ github.event.repository.name }}
         PLATFORMS="amd64"
 
