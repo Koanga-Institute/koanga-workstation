@@ -1,0 +1,15 @@
+# SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+[Unit]
+Description=Add Kōanga's Fuji ApeosPort printer
+ConditionPathExists=!/etc/cups/ppd/Fuji_ApeosPort_C3321.ppd
+Requires=cups.socket
+After=cups.socket
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/koanga-workstation/add-fuji-printer
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,15 @@
+SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
+SPDX-License-Identifier: GPL-2.0-or-later
+
+Sends the job's copy count to the printer.
+
+--- a/fxlinuxprint.c
++++ b/fxlinuxprint.c
+@@ -377,6 +377,7 @@
+ 
+ 	// get options
+ 	strcpy ( opt->job_name, argv[3]);
++	opt->copies = atoi (argv[4]);
+ 	num_options = cupsParseOptions (argv[5], 0, &p_options);
+ 
+ 	if( (p_ppd = ppdOpenFile(file_name)) != NULL ) {

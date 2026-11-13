@@ -1,0 +1,6 @@
+# SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Shows Kōanga's logo on the sign-in screen.
+
+[org/gnome/login-screen]
+logo='/usr/share/pixmaps/Koanga_Logo_2022_F6EEE8.svg'

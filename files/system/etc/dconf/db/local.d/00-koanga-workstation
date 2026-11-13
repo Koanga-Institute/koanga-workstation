@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Desktop defaults for every account.
+
+[org/gnome/desktop/background]
+picture-uri='file:///usr/share/backgrounds/koanga/Koanga_Clay-on-Blush.xml'
+picture-uri-dark='file:///usr/share/backgrounds/koanga/Koanga_Sage-on-Olive.xml'
+picture-options='zoom'
+
+[org/gnome/desktop/screensaver]
+lock-enabled=false
+
+[org/gnome/desktop/lockdown]
+disable-lock-screen=true
+
+[org/gnome/shell]
+favorite-apps=['io.github.ungoogled_software.ungoogled_chromium.desktop', 'org.onlyoffice.desktopeditors.desktop', 'org.gnome.Nautilus.desktop']

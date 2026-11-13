@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Creates the Kōanga account with no password and a keyring that opens without one. Called by koanga-account.service.
+# SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+set -euo pipefail
+
+ACCOUNT_NAME="koanga"
+ACCOUNT_FULL_NAME="Kōanga"
+KEYRING_SOURCE_DIR="/usr/share/koanga-workstation/keyrings"
+
+if getent passwd "${ACCOUNT_NAME}" > /dev/null; then
+    echo "The ${ACCOUNT_NAME} account exists already"
+    exit 0
+fi
+
+useradd --user-group --create-home --comment "${ACCOUNT_FULL_NAME}" "${ACCOUNT_NAME}"
+
+home_dir="$(getent passwd "${ACCOUNT_NAME}" | cut --delimiter : --fields 6)"
+keyring_dir="${home_dir}/.local/share/keyrings"
+
+install --owner "${ACCOUNT_NAME}" --group "${ACCOUNT_NAME}" --mode 0700 --directory \
+    "${home_dir}/.local" "${home_dir}/.local/share" "${keyring_dir}"
+install --owner "${ACCOUNT_NAME}" --group "${ACCOUNT_NAME}" --mode 0600 --target-directory "${keyring_dir}" \
+    "${KEYRING_SOURCE_DIR}/default" "${KEYRING_SOURCE_DIR}/Default_keyring.keyring"
+restorecon -R "${home_dir}"
+
+echo "Created the ${ACCOUNT_NAME} account"

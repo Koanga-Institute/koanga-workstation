@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Adds Kōanga's Fuji ApeosPort to CUPS and makes it the default printer. Called by koanga-printers.service.
+# SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+set -euo pipefail
+
+QUEUE_NAME="Fuji_ApeosPort_C3321"
+QUEUE_DESCRIPTION="Fuji ApeosPort C3321"
+DEVICE_URI="ipps://FUJI%20XEROX%20ApeosPort-VII%20C3321%20(5c%3Ab6%3A47)._ipps._tcp.local/"
+DRIVER_MODEL="FujiXerox/en/fxlinuxprint.ppd"
+QUEUE_OPTIONS=(-o PageSize=A4 -o FXCollate=True)
+
+if lpstat -p "${QUEUE_NAME}" > /dev/null 2>&1; then
+    echo "The ${QUEUE_NAME} queue exists already"
+    exit 0
+fi
+
+lpadmin -p "${QUEUE_NAME}" -E -D "${QUEUE_DESCRIPTION}" -v "${DEVICE_URI}" -m "${DRIVER_MODEL}" "${QUEUE_OPTIONS[@]}"
+lpadmin -d "${QUEUE_NAME}"
+
+echo "Added the ${QUEUE_NAME} queue"
