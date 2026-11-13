@@ -1,8 +1,9 @@
 # SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Flathub apps each machine installs for every account. One Flatpak ID a line.
+# Apps each machine installs for every account, from Flathub and ursa.nz. One Flatpak ID a line.
 
 fr.handbrake.ghb
 io.github.ungoogled_software.ungoogled_chromium
+nz.ursa.Onym
 org.onlyoffice.desktopeditors
 org.videolan.VLC

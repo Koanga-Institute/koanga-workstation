@@ -1,0 +1,37 @@
+# SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Draws Kōanga's logo over a spinner while a machine starts and stops.
+
+[Plymouth Theme]
+Name=Kōanga
+Description=Kōanga's logo over a spinner
+ModuleName=two-step
+
+[two-step]
+Font=Red Hat Text 12
+TitleFont=Red Hat Text Light 30
+ImageDir=/usr/share/plymouth/themes/koanga
+WatermarkHorizontalAlignment=.5
+WatermarkVerticalAlignment=.38
+HorizontalAlignment=.5
+VerticalAlignment=.72
+DialogHorizontalAlignment=.5
+DialogVerticalAlignment=.72
+TitleHorizontalAlignment=.5
+TitleVerticalAlignment=.62
+Transition=none
+TransitionDuration=0.0
+BackgroundStartColor=0x000000
+BackgroundEndColor=0x000000
+ProgressBarBackgroundColor=0x606060
+ProgressBarForegroundColor=0xffffff
+MessageBelowAnimation=true
+
+[boot-up]
+UseEndAnimation=false
+
+[shutdown]
+UseEndAnimation=false
+
+[reboot]
+UseEndAnimation=false

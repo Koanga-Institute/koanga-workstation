@@ -7,6 +7,12 @@ picture-uri='file:///usr/share/backgrounds/koanga/Koanga_Clay-on-Blush.xml'
 picture-uri-dark='file:///usr/share/backgrounds/koanga/Koanga_Sage-on-Olive.xml'
 picture-options='zoom'
 
+[org/gnome/desktop/input-sources]
+sources=[('xkb', 'nz+mao')]
+
+[org/gnome/desktop/interface]
+icon-theme='Koanga'
+
 [org/gnome/desktop/screensaver]
 lock-enabled=false
 
@@ -14,4 +20,5 @@ lock-enabled=false
 disable-lock-screen=true
 
 [org/gnome/shell]
+enabled-extensions=['dash-to-dock@micxgx.gmail.com']
 favorite-apps=['io.github.ungoogled_software.ungoogled_chromium.desktop', 'org.onlyoffice.desktopeditors.desktop', 'org.gnome.Nautilus.desktop']

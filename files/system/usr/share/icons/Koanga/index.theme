@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Adwaita, with Chromium's blue logo as ungoogled Chromium's icon and Kōanga's ō as the top bar's logo.
+
+[Icon Theme]
+Name=Kōanga
+Comment=Adwaita with the blue Chromium icon and Kōanga's ō
+Inherits=Adwaita,hicolor
+Directories=scalable/apps
+
+[scalable/apps]
+Context=Applications
+Size=128
+MinSize=8
+MaxSize=512
+Type=Scalable

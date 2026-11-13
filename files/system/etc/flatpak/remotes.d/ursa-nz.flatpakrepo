@@ -1,10 +1,11 @@
 # SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Adds the ursa.nz Flatpak repo as the remote ursa-nz.
+# Adds the ursa.nz Flatpak repo as the remote ursa-nz, on its stable branch.
 
 [Flatpak Repo]
 Title=ursa.nz
 Url=https://software.ursa.nz/flatpak/
+DefaultBranch=stable
 Homepage=https://software.ursa.nz/
 Comment=Free and open source GNOME apps from ursa.nz
 Description=Free and open source GNOME apps from ursa.nz
