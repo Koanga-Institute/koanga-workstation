@@ -10,7 +10,7 @@ Each row is a source ursa.nz did not write alone. The full licence texts are in 
 | Source | Files | Licence | Taken |
 | --- | --- | --- | --- |
 | [AlmaLinux/atomic-respin-template](https://github.com/AlmaLinux/atomic-respin-template) at commit `6041267` | `Dockerfile`, `Makefile`, `.gitignore`, `atomic-desktop.pub`, `.github/`, and `build.sh`, `cleanup.sh`, `90-signing.sh` and `91-image-info.sh` in `files/scripts/` | GPL-3.0-only | 2026-11-14 |
-| Kōanga's 2022 logo, from Kōanga's brand folder | `files/system/usr/share/pixmaps/Koanga_Logo_2022_F6EEE8.svg` | CC-BY-NC-SA-4.0 outside Kōanga. Kōanga uses its logo without limit on its own network. | 2026-11-14 |
+| Kōanga's 2022 logo, from Kōanga's brand folder | `Koanga_Logo_2022_F6EEE8.svg` and `Koanga_Logo_2022_555725.svg` in `files/system/usr/share/pixmaps/` | CC-BY-NC-SA-4.0 outside Kōanga. Kōanga uses its logo without limit on its own network. | 2026-11-14 |
 | Wallpapers ursa.nz made from Kōanga's logo and colours | `files/system/usr/share/backgrounds/koanga/*.png` | CC-BY-NC-SA-4.0 outside Kōanga. Kōanga uses its logo without limit on its own network. | 2026-11-14 |
 | The ursa.nz Flatpak repo file at <https://software.ursa.nz/flatpak/ursa.flatpakrepo> | `files/system/etc/flatpak/remotes.d/ursa-nz.flatpakrepo` | GPL-3.0-or-later | 2026-11-14 |
 | The ō mark ursa.nz drew for the top bar | `files/system/usr/share/icons/Koanga/scalable/apps/fedora-logo-icon.svg` | CC-BY-NC-SA-4.0 outside Kōanga. Kōanga uses it without limit on its own network. | 2026-11-14 |

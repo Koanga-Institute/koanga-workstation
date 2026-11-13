@@ -13,7 +13,7 @@ A machine starts signed in to the Kōanga account. That account has no password 
 
 Each machine installs ungoogled Chromium, ONLYOFFICE, VLC and HandBrake from Flathub the first time it starts with internet, and Onym from the ursa.nz Flatpak repo, which is the remote `ursa-nz`. Chromium is the only browser, and it wears Chromium's blue icon.
 
-The desktop shows Kōanga's wallpaper, Clay on Blush in the light style and Sage on Olive in the dark style. Dash to Dock keeps the dock on screen. The boot screen and the sign-in screen show Kōanga's logo, and the top bar shows its ō. Settings names the system Kōanga Workstation.
+The desktop shows Kōanga's wallpaper, Clay on Blush in the light style and Sage on Olive in the dark style. Dash to Dock keeps the dock on screen. The boot screen and the sign-in screen show Kōanga's logo, and the top bar shows its ō. Settings names the system Kōanga Workstation and shows the logo on its About page.
 
 The keyboard is the Māori layout. Right Alt with a vowel types its macron.
 
@@ -57,7 +57,7 @@ The build copies `files/system/` onto the image's root, then runs the numbered s
 | Printer discovery and the default paper | `files/scripts/50-printers.sh` and `files/system/etc/papersize` |
 | SSH | `files/system/etc/ssh/sshd_config.d/10-keys-only.conf` |
 | The packages removed and added | `files/scripts/10-packages.sh` |
-| The name in Settings | `files/scripts/30-branding.sh` |
+| The name and the logo in Settings | `files/scripts/30-branding.sh` |
 
 ## Checks
 
