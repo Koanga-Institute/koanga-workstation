@@ -19,7 +19,7 @@ The keyboard is the Māori layout. Right Alt with a vowel types its macron.
 
 Network printers show up on their own, and A4 is the default paper. Each machine adds Kōanga's Fuji ApeosPort at first start, with Collated on, and makes it the default printer. The Fuji runs on Fuji Xerox's GPL driver, which the build compiles from Debian's source.
 
-SSH takes keys and refuses passwords.
+SSH takes keys and refuses passwords. The Cockpit web console is off.
 
 ## Build
 
@@ -57,6 +57,7 @@ The build copies `files/system/` onto the image's root, then runs the numbered s
 | The Fuji's driver | `files/scripts/stages/build-fuji-driver.sh` |
 | Printer discovery and the default paper | `files/scripts/50-printers.sh` and `files/system/etc/papersize` |
 | SSH | `files/system/etc/ssh/sshd_config.d/10-keys-only.conf` |
+| The web console | `files/scripts/60-remote-access.sh` |
 | The packages removed and added | `files/scripts/10-packages.sh` |
 | The name and the logo in Settings | `files/scripts/30-branding.sh` |
 
