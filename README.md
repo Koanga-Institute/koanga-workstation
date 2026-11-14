@@ -11,13 +11,13 @@ Kōanga Workstation is the desktop image for Kōanga's shared machines, built on
 
 A machine starts signed in to the Kōanga account. That account has no password and no admin rights, and its screen never locks. The sign-in screen signs it back in thirty seconds after anyone signs out. The admin account is made at install.
 
-Each machine installs ungoogled Chromium, ONLYOFFICE, VLC and HandBrake from Flathub the first time it starts with internet, and Onym from the ursa.nz Flatpak repo, which is the remote `ursa-nz`. Chromium is the only browser, and it wears Chromium's blue icon.
+Each machine installs ungoogled Chromium, ONLYOFFICE, VLC and HandBrake from Flathub the first time it starts with internet, and Onym from the ursa.nz Flatpak repo, which is the remote `ursa-nz`. Chromium is the only browser, and its launcher shows Chromium's name and blue icon. GNOME Software keeps the apps up to date.
 
-The desktop shows Kōanga's wallpaper, Clay on Blush in the light style and Sage on Olive in the dark style. Dash to Dock keeps the dock on screen. The boot screen and the sign-in screen show Kōanga's logo, and the top bar shows its ō. Settings names the system Kōanga Workstation and shows the logo on its About page.
+The desktop shows Kōanga's wallpaper, Clay on Blush in the light style and Sage on Olive in the dark style. Dash to Dock keeps the dock on screen. The boot screen and the sign-in screen show Kōanga's logo, and the top bar shows its ō. The boot menu spells Kōanga with its macron from a machine's second start. Settings names the system Kōanga Workstation and shows the logo on its About page.
 
 The keyboard is the Māori layout. Right Alt with a vowel types its macron.
 
-Network printers show up on their own, and A4 is the default paper. Each machine adds Kōanga's Fuji ApeosPort at first start, with Collated on, and makes it the default printer. The Fuji runs on Fuji Xerox's GPL driver, which the build compiles from Debian's source.
+Network printers show up on their own, and A4 is the default paper. Each machine adds Kōanga's Fuji ApeosPort at first start, with Collated on, and makes it the default printer. The queue has the name CUPS gives the Fuji on the network, so a print dialogue lists it once. The Fuji runs on Fuji Xerox's GPL driver, which the build compiles from Debian's source.
 
 SSH takes keys and refuses passwords. The admin keys in the image sign in to any admin account. The Cockpit web console is off.
 
@@ -151,12 +151,16 @@ sudo lpadmin -p Labels -E -v 'usb://...' -m drv:///sample.drv/zebra.ppd
 | The wallpapers on offer | `files/system/usr/share/backgrounds/koanga/`, one `Koanga_<colourway>_<width>x<height>.png` for each screen shape |
 | The sign-in logo | `files/system/etc/dconf/db/gdm.d/00-koanga-workstation` |
 | The boot screen | `files/system/usr/share/plymouth/themes/koanga/koanga.plymouth` and `files/scripts/30-branding.sh` |
-| An app's icon or the top bar's logo | `files/system/usr/share/icons/Koanga/`, one file named for the app's ID. GNOME asks for the top bar's logo as `fedora-logo-icon`. |
+| An app's icon | `files/system/usr/share/icons/Koanga/scalable/apps/`, one file named for the app's ID |
+| The ō logo | `files/system/usr/share/icons/Koanga/scalable/apps/fedora-logo-icon.svg`. The installer's session shows it on a disc, which `files/scripts/iso/prepare-live-session.sh` draws. |
+| Chromium's launcher name | `files/system/usr/libexec/koanga-workstation/rename-chromium-launcher` |
+| The boot menu's font | `files/system/usr/share/koanga-workstation/grub/user.cfg` |
 | Automatic sign-in and its delay after a sign-out | `files/system/etc/gdm/custom.conf` |
 | The Kōanga account and its keyring | `files/system/usr/libexec/koanga-workstation/create-koanga-account` |
 | The Fuji's queue and its options | `files/system/usr/libexec/koanga-workstation/add-fuji-printer` |
 | The Fuji's driver | `files/scripts/stages/build-fuji-driver.sh` |
 | Printer discovery and the default paper | `files/scripts/50-printers.sh` and `files/system/etc/papersize` |
+| Lookups of `.local` names | `files/system/usr/libexec/koanga-workstation/enable-local-names` |
 | SSH | `files/system/etc/ssh/sshd_config.d/10-keys-only.conf` and `20-admin-keys.conf` beside it |
 | The admin keys | `files/system/usr/share/koanga-workstation/ssh/admin-keys` |
 | The web console | `files/scripts/60-remote-access.sh` |
@@ -179,9 +183,11 @@ The code is GPL-3.0-or-later. The files from AlmaLinux's template are GPL-3.0-on
 
 ## Caveats
 
-Every step above ran in a virtual machine with UEFI firmware. A real machine, a Wi-Fi join, printer discovery on Kōanga's network and both label printers are untried. The installer also starts on BIOS firmware, and an install there is untried.
+Every step above ran in a virtual machine with UEFI firmware. A real machine, a Wi-Fi join and both label printers are untried. The installer also starts on BIOS firmware, and an install there is untried.
 
-The Fuji's queue finds the printer by its name on Kōanga's network.
+The printers were tried on Kōanga's network from a container of the image. Both Brothers set up without a driver, and the Fuji printed two collated copies.
+
+The Fuji's queue finds the printer by its name on Kōanga's network. It prints PDFs, which is what apps send, and fails on PostScript and plain text files.
 
 The firewall lets in SSH on port 22 and printer discovery on port 5353.
 
