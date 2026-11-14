@@ -1,0 +1,9 @@
+# SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Public keys that sign in to any admin account over SSH. One key a line.
+
+# Hardware key
+sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIBiurxKgz9KuqK/k6LVznw6Ut7V+1UlxMaAsX3QUjYJDAAAABHNzaDo=
+
+# Backup key
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINeEZy3xh0k3yK49V0AqgzWb7YIFMeTh3IgJfo4AloQ+
