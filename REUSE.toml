@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Licence notes for files that take neither a comment nor a sidecar.
+# Constraint: Chromium parses every file in its policy folder as JSON, so a .license sidecar there
+# shows as a policy error.
+
+version = 1
+
+[[annotations]]
+path = "files/system/usr/share/koanga-workstation/chromium/policy/policies/managed/koanga.json"
+SPDX-FileCopyrightText = "2026 ursa.nz <code@ursa.nz>"
+SPDX-License-Identifier = "GPL-3.0-or-later"
