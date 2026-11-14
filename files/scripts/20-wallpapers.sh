@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Writes a background file for each wallpaper colourway and lists them for Settings. Called by build.sh during the image build.
+# Writes a background file for each wallpaper colourway and lists them for Settings, the default light and dark pair first. Called by build.sh during the image build.
 # SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -7,6 +7,7 @@ set -euo pipefail
 
 WALLPAPER_DIR="/usr/share/backgrounds/koanga"
 SETTINGS_LIST="/usr/share/gnome-background-properties/koanga.xml"
+DESKTOP_DEFAULTS="/etc/dconf/db/local.d/00-koanga-workstation"
 
 # Prints each colourway that has a picture in WALLPAPER_DIR, one a line.
 list_colourways() {
@@ -34,13 +35,33 @@ print_background_file() {
     echo "</background>"
 }
 
+# Prints the background file that a key of the desktop defaults names.
+read_default_background() {
+    local key="$1"
+
+    sed -n "s|^${key}='file://\(.*\)'\$|\1|p" "${DESKTOP_DEFAULTS}"
+}
+
 # Prints the list Settings reads its wallpaper choices from.
 print_settings_list() {
-    local colourway
+    local colourway light_background dark_background
+
+    light_background="$(read_default_background picture-uri)"
+    dark_background="$(read_default_background picture-uri-dark)"
+    if [[ -z "${light_background}" || -z "${dark_background}" ]]; then
+        echo "[20-wallpapers] ${DESKTOP_DEFAULTS} names no light and dark background" >&2
+        return 1
+    fi
 
     echo '<?xml version="1.0" encoding="UTF-8"?>'
     echo '<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">'
     echo "<wallpapers>"
+    echo '  <wallpaper deleted="false">'
+    echo "    <name>Kōanga</name>"
+    echo "    <filename>${light_background}</filename>"
+    echo "    <filename-dark>${dark_background}</filename-dark>"
+    echo "    <options>zoom</options>"
+    echo "  </wallpaper>"
     for colourway in "$@"; do
         echo '  <wallpaper deleted="false">'
         echo "    <name>Kōanga ${colourway//-/ }</name>"
