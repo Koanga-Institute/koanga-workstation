@@ -1,0 +1,13 @@
+# SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+[Unit]
+Description=Turn on lookups of .local host names
+Before=cups.service koanga-printers.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/koanga-workstation/enable-local-names
+
+[Install]
+WantedBy=multi-user.target

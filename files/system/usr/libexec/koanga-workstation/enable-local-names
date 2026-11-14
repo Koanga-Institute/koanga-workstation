@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Turns on lookups of .local host names. Called by koanga-local-names.service.
+# SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+set -euo pipefail
+
+MDNS_FEATURE="with-mdns4"
+
+if authselect current --raw | grep -q -w -- "${MDNS_FEATURE}"; then
+    echo "${MDNS_FEATURE} is on already"
+    exit 0
+fi
+
+authselect enable-feature "${MDNS_FEATURE}"
+echo "Turned ${MDNS_FEATURE} on"
