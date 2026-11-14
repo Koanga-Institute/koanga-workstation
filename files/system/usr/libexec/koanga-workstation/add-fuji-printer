@@ -5,7 +5,9 @@
 
 set -euo pipefail
 
-QUEUE_NAME="Fuji_ApeosPort_C3321"
+# Constraint: the name CUPS gives the discovered Fuji. Under any other name the Fuji is listed twice,
+# and CUPS 2.4.10 cannot set the second entry up.
+QUEUE_NAME="FUJI_XEROX_ApeosPort_VII_C3321_5c_b6_47"
 QUEUE_DESCRIPTION="Fuji ApeosPort C3321"
 DEVICE_URI="ipps://FUJI%20XEROX%20ApeosPort-VII%20C3321%20(5c%3Ab6%3A47)._ipps._tcp.local/"
 DRIVER_MODEL="FujiXerox/en/fxlinuxprint.ppd"

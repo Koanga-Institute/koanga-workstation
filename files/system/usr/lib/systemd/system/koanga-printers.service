@@ -3,7 +3,7 @@
 
 [Unit]
 Description=Add Kōanga's Fuji ApeosPort printer
-ConditionPathExists=!/etc/cups/ppd/Fuji_ApeosPort_C3321.ppd
+ConditionPathExists=!/etc/cups/ppd/FUJI_XEROX_ApeosPort_VII_C3321_5c_b6_47.ppd
 Requires=cups.socket
 After=cups.socket
 
