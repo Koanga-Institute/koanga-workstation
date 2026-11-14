@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Writes a copy of Ungoogled Chromium's launcher that is named Chromium. Called by koanga-chromium-launcher.service.
+# SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+set -euo pipefail
+
+APP_ID="io.github.ungoogled_software.ungoogled_chromium"
+APP_LAUNCHER="/var/lib/flatpak/exports/share/applications/${APP_ID}.desktop"
+RENAMED_LAUNCHER="/var/lib/koanga-workstation/launchers/applications/${APP_ID}.desktop"
+LAUNCHER_NAME="Chromium"
+
+if [[ ! -f "${APP_LAUNCHER}" ]]; then
+    echo "Ungoogled Chromium has no launcher yet"
+    exit 0
+fi
+
+sed -e "/^\[Desktop Entry\]/,/^\[Desktop Action/ { /^Name\[/d; s/^Name=.*/Name=${LAUNCHER_NAME}/; }" \
+    "${APP_LAUNCHER}" > "${RENAMED_LAUNCHER}.new"
+mv "${RENAMED_LAUNCHER}.new" "${RENAMED_LAUNCHER}"
+echo "Wrote ${RENAMED_LAUNCHER}"

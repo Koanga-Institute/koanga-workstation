@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Puts the image's renamed launchers ahead of the apps' own in each account's session. Run by systemd for each account.
+# SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+set -euo pipefail
+
+LAUNCHER_DIR="/var/lib/koanga-workstation/launchers"
+
+echo "XDG_DATA_DIRS=${LAUNCHER_DIR}:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
