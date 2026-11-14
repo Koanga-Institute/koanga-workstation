@@ -5,7 +5,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 # Provenance
 
-Each row is a source ursa.nz did not write alone. The full licence texts are in `LICENSES/`. The image has the Fuji driver's licence at `/usr/share/licenses/fxlinuxprint/COPYING`.
+Each row is a source ursa.nz did not write alone. The full licence texts are in `LICENSES/`. The image has the licences of what each build downloads under `/usr/share/licenses/`, in `fxlinuxprint`, `chromium-dictionaries`, `chromium-web-store` and `ublock-origin`.
 
 | Source | Files | Licence | Taken |
 | --- | --- | --- | --- |
@@ -16,5 +16,8 @@ Each row is a source ursa.nz did not write alone. The full licence texts are in 
 | The ō mark ursa.nz drew for the top bar | `files/system/usr/share/icons/Koanga/scalable/apps/fedora-logo-icon.svg` | CC-BY-NC-SA-4.0 outside Kōanga. Kōanga uses it without limit on its own network. | 2026-11-14 |
 | Chromium's logo, `chrome/app/theme/chromium/product_logo.svg` in [Chromium's source](https://chromium.googlesource.com/chromium/src/) | `files/system/usr/share/icons/Koanga/scalable/apps/io.github.ungoogled_software.ungoogled_chromium.svg` | BSD-3-Clause | 2026-11-14 |
 | Fuji Xerox's fxlinuxprint 1.1.0, from Debian's source package `fxlinuxprint` 1.1.0+ds-4 on <https://snapshot.debian.org>. The build downloads it and checks its SHA-256. The repo stores none of it. | In the image, the three filters ending in `fx` in `/usr/lib/cups/filter/`, `fxlinuxprint.ppd` and the two `mimefx` files | GPL-2.0-or-later | Each build |
+| Chromium's Australian and British spell-check dictionaries, from [Chromium's hunspell dictionaries](https://chromium.googlesource.com/chromium/deps/hunspell_dictionaries/) at commit `00f6e69`. The build downloads them and checks their SHA-256. The repo stores none of them. | In the image, the two `.bdic` files in `/usr/share/koanga-workstation/chromium/dictionaries/` | SCOWL's and Ispell's terms, in `README_en_AU.txt` and `README_en_GB.txt` | Each build |
+| [Chromium Web Store](https://github.com/NeverDecaf/chromium-web-store) 1.5.5.4, from its release page. The build downloads it and checks its SHA-256. The repo stores none of it. | In the image, `/usr/share/koanga-workstation/chromium/extension/crx/ocaahdebbfolfmndjeplogmgcagdmblk.crx` | MIT | Each build |
+| [uBlock Origin](https://github.com/gorhill/uBlock) 1.76.2, from its release page. The build downloads it and checks its SHA-256. The repo stores none of it. | In the image, `/usr/share/koanga-workstation/chromium/extension/crx/fkgkibajhfbepljeaefdnfnegdcjomkh.crx` | GPL-3.0-or-later | Each build |
 
 The template's repo has the GPL version 3 text and no "or later" grant, so its files stay GPL-3.0-only. A file ursa.nz changed credits both.

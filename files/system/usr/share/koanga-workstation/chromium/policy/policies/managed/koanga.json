@@ -1,0 +1,18 @@
+{
+  "HomepageLocation": "https://koanga.org.nz/",
+  "HomepageIsNewTabPage": false,
+  "ShowHomeButton": true,
+  "RestoreOnStartup": 4,
+  "RestoreOnStartupURLs": [
+    "https://koanga.org.nz/"
+  ],
+  "DefaultSearchProviderEnabled": true,
+  "DefaultSearchProviderName": "DuckDuckGo",
+  "DefaultSearchProviderKeyword": "duckduckgo.com",
+  "DefaultSearchProviderSearchURL": "https://duckduckgo.com/?q={searchTerms}",
+  "SpellcheckEnabled": true,
+  "SpellcheckLanguage": [
+    "en-AU",
+    "en-GB"
+  ]
+}

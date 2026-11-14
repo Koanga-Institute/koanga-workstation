@@ -13,6 +13,8 @@ A machine starts signed in to the Kōanga account. That account has no password 
 
 Each machine installs ungoogled Chromium, ONLYOFFICE, VLC and HandBrake from Flathub the first time it starts with internet, and Onym from the ursa.nz Flatpak repo, which is the remote `ursa-nz`. Chromium is the only browser, and its launcher shows Chromium's name and blue icon. GNOME Software keeps the apps up to date.
 
+Chromium opens on koanga.org.nz and searches with DuckDuckGo, and both are locked. It has uBlock Origin and the Chromium Web Store add-on from its first start. It checks spelling against the Australian and British dictionaries.
+
 The desktop shows Kōanga's wallpaper, Clay on Blush in the light style and Sage on Olive in the dark style. Dash to Dock keeps the dock on screen. The boot screen and the sign-in screen show Kōanga's logo, and the top bar shows its ō. The boot menu spells Kōanga with its macron from a machine's second start. Settings names the system Kōanga Workstation and shows the logo on its About page.
 
 The keyboard is the Māori layout. Right Alt with a vowel types its macron.
@@ -131,6 +133,10 @@ sudo systemctl reboot
 
 Edit `files/system/usr/share/koanga-workstation/ssh/admin-keys` and push. Each machine takes the new keys once it has updated and restarted.
 
+### Update Chromium's add-ons
+
+Ungoogled Chromium has no add-on updater. The Chromium Web Store add-on shows a badge when a newer one is out, and anyone can install it from there. To put a newer one in the image, change its version and SHA-256 in `files/scripts/55-chromium.sh` and push.
+
 ### Add a USB label printer
 
 CUPS's Zebra ZPL driver is in the image. Plug the printer in, find its address, then add it.
@@ -154,6 +160,9 @@ sudo lpadmin -p Labels -E -v 'usb://...' -m drv:///sample.drv/zebra.ppd
 | An app's icon | `files/system/usr/share/icons/Koanga/scalable/apps/`, one file named for the app's ID |
 | The ō logo | `files/system/usr/share/icons/Koanga/scalable/apps/fedora-logo-icon.svg`. The installer's session shows it on a disc, which `files/scripts/iso/prepare-live-session.sh` draws. |
 | Chromium's launcher name | `files/system/usr/libexec/koanga-workstation/rename-chromium-launcher` |
+| Chromium's home page, search engine and spell-check languages | `files/system/usr/share/koanga-workstation/chromium/policy/policies/managed/koanga.json` |
+| Chromium's add-ons, their versions and its dictionaries | `files/scripts/55-chromium.sh` |
+| Chromium's start-up flags | `files/system/usr/share/koanga-workstation/chromium/chromium-flags.conf` |
 | The boot menu's font | `files/system/usr/share/koanga-workstation/grub/user.cfg` |
 | Automatic sign-in and its delay after a sign-out | `files/system/etc/gdm/custom.conf` |
 | The Kōanga account and its keyring | `files/system/usr/libexec/koanga-workstation/create-koanga-account` |
@@ -190,5 +199,7 @@ The printers were tried on Kōanga's network from a container of the image. Both
 The Fuji's queue finds the printer by its name on Kōanga's network. It prints PDFs, which is what apps send, and fails on PostScript and plain text files.
 
 The firewall lets in SSH on port 22 and printer discovery on port 5353.
+
+Chromium flags te reo Māori words as misspelt, since neither dictionary has them. Anyone using the Kōanga account can remove an add-on, and it stays removed.
 
 Roll back first when an update goes wrong. A reinstall is the last resort, and it wipes the files in the Kōanga account.
