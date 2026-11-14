@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Names the system Kōanga Workstation and puts Kōanga's logo on the boot screen and the About page. Called by build.sh during the image build.
+# Names the system Kōanga Workstation, puts Kōanga's logo on the boot screen and the About page, and enables the boot menu's font unit. Called by build.sh during the image build.
 # SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -59,3 +59,6 @@ name_system
 render_about_logos
 build_boot_theme
 rebuild_initramfs
+
+echo "Enabling koanga-boot-menu-font.service"
+systemctl enable koanga-boot-menu-font.service

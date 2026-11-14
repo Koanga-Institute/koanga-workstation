@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Gives the boot menu a font with macrons. Called by koanga-boot-menu-font.service.
+# SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+set -euo pipefail
+
+GRUB_DIR="/boot/grub2"
+FONT_SOURCE="/usr/share/grub/unicode.pf2"
+FONT_TARGET="${GRUB_DIR}/fonts/unicode.pf2"
+CONFIG_SOURCE="/usr/share/koanga-workstation/grub/user.cfg"
+CONFIG_TARGET="${GRUB_DIR}/user.cfg"
+
+if cmp --silent "${FONT_SOURCE}" "${FONT_TARGET}" && cmp --silent "${CONFIG_SOURCE}" "${CONFIG_TARGET}"; then
+    echo "The boot menu has its font already"
+    exit 0
+fi
+
+install -D --mode 0644 "${FONT_SOURCE}" "${FONT_TARGET}"
+install --mode 0644 "${CONFIG_SOURCE}" "${CONFIG_TARGET}"
+echo "Wrote ${FONT_TARGET} and ${CONFIG_TARGET}"
