@@ -13,7 +13,7 @@ A machine starts signed in to the Kōanga account. That account has no password 
 
 Each machine installs ungoogled Chromium, ONLYOFFICE, VLC and HandBrake from Flathub the first time it starts with internet, and Onym from the ursa.nz Flatpak repo, which is the remote `ursa-nz`. Chromium is the only browser, and its launcher shows Chromium's name and blue icon. GNOME Software keeps the apps up to date.
 
-Chromium opens on koanga.org.nz and searches with DuckDuckGo, and both are locked. It has uBlock Origin and the Chromium Web Store add-on from its first start. It checks spelling against the Australian and British dictionaries.
+Chromium's Home button goes to koanga.org.nz and its address bar searches with DuckDuckGo, and both are locked. It has uBlock Origin and the Chromium Web Store add-on from its first start. It checks spelling against the Australian and British dictionaries.
 
 The desktop shows Kōanga's wallpaper, Clay on Blush in the light style and Sage on Olive in the dark style. Dash to Dock keeps the dock on screen. The boot screen and the sign-in screen show Kōanga's logo, and the top bar shows its ō. The boot menu spells Kōanga with its macron from a machine's second start. Settings names the system Kōanga Workstation and shows the logo on its About page.
 
