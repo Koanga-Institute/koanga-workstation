@@ -12,6 +12,7 @@ REMOVED_PACKAGES=(
 )
 ADDED_PACKAGES=(
     gnome-shell-extension-dash-to-dock
+    nss-mdns
 )
 
 echo "Removing ${REMOVED_PACKAGES[*]}"
