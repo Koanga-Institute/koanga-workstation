@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Creates the Kōanga account with no password and a keyring that opens without one. Called by koanga-account.service.
+# Creates the Kōanga account with an empty password and a keyring that opens without one. Called by koanga-account.service.
 # SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -15,6 +15,9 @@ if getent passwd "${ACCOUNT_NAME}" > /dev/null; then
 fi
 
 useradd --user-group --create-home --comment "${ACCOUNT_FULL_NAME}" "${ACCOUNT_NAME}"
+# Constraint: an empty password, never a locked one. The sign-in screen hides a locked account
+# and then never signs it back in after a sign-out.
+passwd --delete "${ACCOUNT_NAME}" > /dev/null
 
 home_dir="$(getent passwd "${ACCOUNT_NAME}" | cut --delimiter : --fields 6)"
 keyring_dir="${home_dir}/.local/share/keyrings"
