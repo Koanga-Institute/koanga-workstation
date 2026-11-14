@@ -43,7 +43,8 @@ The build copies `files/system/` onto the image's root, then runs the numbered s
 
 | To change | Edit |
 | --- | --- |
-| The apps a machine installs | `files/system/etc/flatpak/default-flatpaks/system/install` |
+| The apps a machine installs from Flathub | `files/system/etc/flatpak/default-flatpaks/system/install` |
+| The apps a machine installs from ursa.nz | `files/system/etc/flatpak/default-flatpaks/system/install-ursa-nz` |
 | The default browser | `files/system/etc/xdg/mimeapps.list` |
 | The default wallpaper, the dock, the keyboard, the icon theme and the screen lock | `files/system/etc/dconf/db/local.d/00-koanga-workstation` |
 | The wallpapers on offer | `files/system/usr/share/backgrounds/koanga/`, one `Koanga_<colourway>_<width>x<height>.png` for each screen shape |
@@ -62,7 +63,7 @@ The build copies `files/system/` onto the image's root, then runs the numbered s
 ## Checks
 
 ```sh
-shellcheck files/scripts/*.sh files/scripts/stages/*.sh files/system/usr/libexec/koanga-workstation/*
+shellcheck files/scripts/*.sh files/scripts/stages/*.sh files/scripts/iso/*.sh files/system/usr/libexec/koanga-workstation/*
 reuse lint
 ruru . --skip licence.copyright,licence.identifier
 ```

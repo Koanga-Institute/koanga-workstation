@@ -38,6 +38,7 @@ jobs:
       image-name: "${{ needs.set-env.outputs.IMAGE_NAME }}"
       image: "${{ needs.set-env.outputs.IMAGE_REF }}:${{ needs.set-env.outputs.LATEST_TAG }}"
       update-origin-ref: "${{ needs.set-env.outputs.IMAGE_REF }}:${{ needs.set-env.outputs.LATEST_TAG }}"
+      hook-script: files/scripts/iso/prepare-live-session.sh
       platforms: ${{ needs.set-env.outputs.PLATFORMS }}
       REGISTRY: ${{ needs.set-env.outputs.REGISTRY }}
       REGISTRY_USER: ${{ needs.set-env.outputs.REGISTRY_USER }}

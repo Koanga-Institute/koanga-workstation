@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Installs the apps listed for the ursa.nz Flatpak repo. Called by koanga-ursa-nz-apps.service.
+# SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+set -euo pipefail
+
+REMOTE_NAME="ursa-nz"
+APP_LIST="/etc/flatpak/default-flatpaks/system/install-ursa-nz"
+
+missing_apps=()
+while read -r app_id; do
+    if ! flatpak info --system "${app_id}" > /dev/null 2>&1; then
+        missing_apps+=("${app_id}")
+    fi
+done < <(grep -v -E '^#|^$' "${APP_LIST}")
+
+if [[ "${#missing_apps[@]}" -eq 0 ]]; then
+    echo "Every app listed for ${REMOTE_NAME} is installed already"
+    exit 0
+fi
+
+echo "Installing ${missing_apps[*]} from ${REMOTE_NAME}"
+flatpak install --system --noninteractive "${REMOTE_NAME}" "${missing_apps[@]}"
