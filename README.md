@@ -19,7 +19,7 @@ The keyboard is the Māori layout. Right Alt with a vowel types its macron.
 
 Network printers show up on their own, and A4 is the default paper. Each machine adds Kōanga's Fuji ApeosPort at first start, with Collated on, and makes it the default printer. The Fuji runs on Fuji Xerox's GPL driver, which the build compiles from Debian's source.
 
-SSH takes keys and refuses passwords. The Cockpit web console is off.
+SSH takes keys and refuses passwords. The admin keys in the image sign in to any admin account. The Cockpit web console is off.
 
 ## Build
 
@@ -39,6 +39,107 @@ podman build --security-opt=label=disable --cap-add=all --device /dev/fuse \
 
 The build copies `files/system/` onto the image's root, then runs the numbered scripts in `files/scripts/` in order. A separate stage runs `files/scripts/stages/build-fuji-driver.sh`, so its compiler stays out of the image. The `Dockerfile` pins AlmaLinux's base image by digest.
 
+## Set up once
+
+### 1. Make the image public
+
+GitHub makes a new image private, and a private image stops every update. A machine downloads updates without signing in. Open the [package's settings](https://github.com/orgs/Koanga-Institute/packages/container/koanga-workstation/settings), choose Change visibility, then Public. Where GitHub says the org has disabled the setting, tick Public under Package creation in the [org's package settings](https://github.com/organizations/Koanga-Institute/settings/packages) first.
+
+### 2. Store the signing key
+
+GitHub signs each image with the key in the repo's `SIGNING_SECRET` secret. A machine refuses an image without that signature. Keep the only other copy of the key, `cosign.key`, in a password manager. Git ignores that filename.
+
+## Install a machine
+
+The install wipes the machine's disk. A fresh install with its apps takes 12 GB.
+
+### 1. Build the installer
+
+The newest image is inside the installer, so the install needs no internet.
+
+```sh
+gh workflow run build-iso.yml --repo Koanga-Institute/koanga-workstation
+```
+
+Download the ISO when the run ends. GitHub keeps it for seven days.
+
+```sh
+gh run download --repo Koanga-Institute/koanga-workstation --name koanga-workstation-amd64
+sha256sum --check koanga-workstation-amd64.iso-CHECKSUM
+```
+
+### 2. Write it to a USB stick
+
+`lsblk` lists the stick's device. This wipes the stick.
+
+```sh
+sudo dd if=koanga-workstation-amd64.iso of=/dev/sdX bs=4M status=progress conv=fsync
+```
+
+### 3. Run the installer
+
+1. Start the machine from the stick and choose Start koanga-workstation Live.
+2. Choose Install AlmaLinux, then a language.
+3. Open Installation Destination and tick the disk. Where the disk has a system on it, tick Free up space, choose Done, then Delete all and Reclaim space.
+4. Open User Creation. Name the admin account and set its password. Leave Add administrative privileges ticked.
+5. Choose Begin Installation, and Finish Installation when it ends.
+6. Power off from the menu at the top right. Pull the stick out and start the machine.
+
+### 4. Check the machine
+
+On a wired network the apps appear within ten minutes of the first start. On Wi-Fi, join the network, then start the app install from Terminal.
+
+```sh
+su - admin
+sudo systemctl start system-flatpak-setup.service
+```
+
+Then run the checks as the admin account.
+
+```sh
+sudo bootc status
+flatpak list --system --app
+lpstat -v
+systemctl --failed
+```
+
+`bootc status` shows the image `ghcr.io/koanga-institute/koanga-workstation:latest`. Flatpak lists five apps. `lpstat` lists the Fuji. No unit has failed.
+
+## Look after a machine
+
+Run these as the admin account, over SSH or after `su - admin` in Terminal.
+
+### Update
+
+A machine looks for a new image an hour after it starts and every eight hours after that. It downloads the image and starts on it at its next restart. This updates one now.
+
+```sh
+sudo bootc upgrade
+sudo systemctl reboot
+```
+
+### Roll back
+
+A machine keeps the system it ran before its last update. This starts it on that system again.
+
+```sh
+sudo bootc rollback
+sudo systemctl reboot
+```
+
+### Change the admin keys
+
+Edit `files/system/usr/share/koanga-workstation/ssh/admin-keys` and push. Each machine takes the new keys once it has updated and restarted.
+
+### Add a USB label printer
+
+CUPS's Zebra ZPL driver is in the image. Plug the printer in, find its address, then add it.
+
+```sh
+sudo lpinfo -v | grep usb
+sudo lpadmin -p Labels -E -v 'usb://...' -m drv:///sample.drv/zebra.ppd
+```
+
 ## Where each setting is
 
 | To change | Edit |
@@ -56,7 +157,8 @@ The build copies `files/system/` onto the image's root, then runs the numbered s
 | The Fuji's queue and its options | `files/system/usr/libexec/koanga-workstation/add-fuji-printer` |
 | The Fuji's driver | `files/scripts/stages/build-fuji-driver.sh` |
 | Printer discovery and the default paper | `files/scripts/50-printers.sh` and `files/system/etc/papersize` |
-| SSH | `files/system/etc/ssh/sshd_config.d/10-keys-only.conf` |
+| SSH | `files/system/etc/ssh/sshd_config.d/10-keys-only.conf` and `20-admin-keys.conf` beside it |
+| The admin keys | `files/system/usr/share/koanga-workstation/ssh/admin-keys` |
 | The web console | `files/scripts/60-remote-access.sh` |
 | The packages removed and added | `files/scripts/10-packages.sh` |
 | The name and the logo in Settings | `files/scripts/30-branding.sh` |
@@ -74,3 +176,13 @@ The two skipped rules expect ursa.nz on every file. `PROVENANCE.md` lists the fi
 ## Licences
 
 The code is GPL-3.0-or-later. The files from AlmaLinux's template are GPL-3.0-only. The Fuji driver in the image is GPL-2.0-or-later, and `PROVENANCE.md` says where its source is. Chromium's logo is BSD-3-Clause. Kōanga's logo and the wallpapers are CC-BY-NC-SA-4.0 outside Kōanga, and Kōanga uses them without limit on its own network.
+
+## Caveats
+
+Every step above ran in a virtual machine with UEFI firmware. A real machine, a Wi-Fi join, printer discovery on Kōanga's network and both label printers are untried. The installer also starts on BIOS firmware, and an install there is untried.
+
+The Fuji's queue finds the printer by its name on Kōanga's network.
+
+The firewall lets in SSH on port 22 and printer discovery on port 5353.
+
+Roll back first when an update goes wrong. A reinstall is the last resort, and it wipes the files in the Kōanga account.
