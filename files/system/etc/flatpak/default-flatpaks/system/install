@@ -1,6 +1,8 @@
 # SPDX-FileCopyrightText: 2026 ursa.nz <code@ursa.nz>
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Apps each machine installs for every account from Flathub. One Flatpak ID a line.
+# Constraint: Flathub apps only. Flatpak looks for every app on this list in one repo,
+# and an app from another repo stops them all installing. Other repos take their own list.
 
 fr.handbrake.ghb
 io.github.ungoogled_software.ungoogled_chromium
