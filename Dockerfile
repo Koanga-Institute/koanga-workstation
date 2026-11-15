@@ -10,7 +10,7 @@ COPY --chmod=0755 files/scripts /build_files/
 COPY *.pub /keys/
 
 # Base Image
-FROM quay.io/almalinuxorg/atomic-desktop-gnome:10@sha256:89f496e726c84d7e857ad9d9ad2760f08584098399d16dab3a17bf8c6d9e2254 AS base
+FROM quay.io/almalinuxorg/atomic-desktop-gnome:10@sha256:b5952c9cdef055e9a06916626e25aa55fa6852c73484cf48e2158b3f6a2465ba AS base
 
 # Builds Fuji Xerox's GPL printer driver into /out
 FROM base AS fuji-driver
